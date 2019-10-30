@@ -3,7 +3,7 @@ import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe';
 
 @Component({
-  selector: 'app-recipe-list',
+  selector: 'cb-recipe-list',
   styleUrls: ['./recipe-list.component.scss'],
   template: `
     <div class="row">
@@ -22,13 +22,7 @@ import { Recipe } from '../recipe';
         <button class="btn btn-warning" (click)="createNewRecipe()">New</button>
       </div>
       <div class="col-md-5 col-md-offset-2">
-        <recipe-details
-          [recipe]="selectedRecipe"
-          [createHandler]="addRecipe"
-          [updateHandler]="updateRecipe"
-          [deleteHandler]="deleteRecipe"
-        >
-        </recipe-details>
+        <cb-recipe-details [recipe]="selectedRecipe"> </cb-recipe-details>
       </div>
     </div>
   `
@@ -51,7 +45,7 @@ export class RecipeListComponent implements OnInit {
     return this.recipes.findIndex(recipe => {
       return recipe._id === recipeId;
     });
-  }
+  };
 
   public selectRecipe(recipe: Recipe): void {
     this.selectedRecipe = recipe;

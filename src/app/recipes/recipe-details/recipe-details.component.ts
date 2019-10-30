@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Recipe } from '../recipe';
+import { RecipeService } from '../recipe.service';
 
 @Component({
-  selector: 'app-recipe-details',
+  selector: 'cb-recipe-details',
   styleUrls: ['./recipe-details.component.scss'],
   template: `
     <div *ngIf="recipe" class="row">
@@ -21,40 +23,6 @@ import { Component, OnInit } from '@angular/core';
             placeholder="Name"
           />
         </div>
-        <div class="form-group">
-          <label for="recipe-email">Email</label>
-          <input
-            class="form-control"
-            name="recipe-email"
-            [(ngModel)]="recipe.email"
-            placeholder="support@mlab.com"
-          />
-        </div>
-        <div class="form-group">
-          <label for="recipe-phone-mobile">Mobile</label>
-          <input
-            class="form-control"
-            name="recipe-phone-mobile"
-            [(ngModel)]="recipe.phone.mobile"
-            placeholder="1234567890"
-          />
-        </div>
-        <div class="form-group">
-          <label for="recipe-phone-work">Work</label>
-          <input
-            class="form-control"
-            name="recipe-phone-work"
-            [(ngModel)]="recipe.phone.work"
-            placeholder="0123456789"
-          />
-        </div>
-        <button
-          class="btn btn-primary"
-          *ngIf="!recipe._id"
-          (click)="createRecipe(recipe)"
-        >
-          Create
-        </button>
         <button
           class="btn btn-info"
           *ngIf="recipe._id"
@@ -73,8 +41,30 @@ import { Component, OnInit } from '@angular/core';
     </div>
   `
 })
-export class RecipeDetailsComponent implements OnInit {
-  constructor() {}
+export class RecipeDetailsComponent {
+  @Input()
+  public recipe: Recipe;
 
-  ngOnInit() {}
+  constructor(private recipeService: RecipeService) {}
+
+  createRecipe(recipe: Recipe) {
+    this.recipeService.createRecipe(recipe).subscribe((newRecipe: Recipe) => {
+      console.log(newRecipe);
+    });
+  }
+
+  /*
+  updateRecipe(recipe: Recipe): void {
+    this.recipeService.updateRecipe(recipe).subscribe((updatedRecipe: Recipe) => {
+      console.log(newRecipe);
+    });
+  }
+
+  deleteRecipe(recipeId: String): void {
+    this.recipeService
+      .deleteRecipe(recipeId)
+      .then((deletedRecipeId: String) => {
+        this.deleteHandler(deletedRecipeId);
+      });
+  } */
 }

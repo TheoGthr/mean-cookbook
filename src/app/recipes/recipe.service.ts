@@ -25,7 +25,7 @@ export class RecipeService {
   /**
    * POST /api/recipes
    */
-  public createRecipes(recipe: Recipe): Observable<Recipe> {
+  public createRecipe(recipe: Recipe): Observable<Recipe> {
     return this.http
       .post<Recipe>(this.recipesUrl, recipe)
       .pipe(catchError(error => throwError(error.message || error)));
