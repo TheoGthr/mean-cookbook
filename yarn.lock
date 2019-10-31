@@ -193,6 +193,13 @@
   resolved "https://si-devops-zhb-nexus.edf.fr/repository/npmjs/@angular/language-service/-/language-service-8.2.12.tgz#30f36fa763a5d1736ed5825243237469e9fb9aa8"
   integrity sha512-uXGVSC4ugkyBt7pYdI8qaKNV0TIxfjSWb3dWNuhD6b9riPtaa+xJFQrfMu7OX/tVX642aFxca4jkUHBLCyWptA==
 
+"@angular/material@^8.2.3":
+  version "8.2.3"
+  resolved "https://si-devops-zhb-nexus.edf.fr/repository/npmjs/@angular/material/-/material-8.2.3.tgz#16543e4e06a3fde2651a25cfe126e88e714ae105"
+  integrity sha512-SOczkIaqes+r+9XF/UUiokidfFKBpHkOPIaFK857sFD0FBNPvPEpOr5oHKCG3feERRwAFqHS7Wo2ohVEWypb5A==
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/platform-browser-dynamic@~8.2.11":
   version "8.2.12"
   resolved "https://si-devops-zhb-nexus.edf.fr/repository/npmjs/@angular/platform-browser-dynamic/-/platform-browser-dynamic-8.2.12.tgz#b1b5f7cd1832686ece45692b094d9d1386bd2313"
@@ -7356,7 +7363,7 @@ ts-node@~7.0.0:
     source-map-support "^0.5.6"
     yn "^2.0.0"
 
-tslib@1.10.0, tslib@^1.10.0, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
+tslib@1.10.0, tslib@^1.10.0, tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.10.0"
   resolved "https://si-devops-zhb-nexus.edf.fr/repository/npmjs/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
