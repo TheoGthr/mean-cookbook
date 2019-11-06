@@ -9,13 +9,14 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { CoreModule } from './core/core.module';
 
 const appRoutes: Routes = [
   { path: 'recipes/:id',      component: RecipeDetailsComponent },
   {
     path: 'recipes',
     component: RecipeListComponent,
-    data: { title: 'Heroes List' }
+    data: { title: 'Recipes List' }
   },
   { path: '',
     redirectTo: '/recipes',
@@ -33,7 +34,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

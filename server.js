@@ -1,12 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongodb = require('mongodb');
-const ObjectId = mongodb.ObjectId;
+const cors = require('cors')
 
+const ObjectId = mongodb.ObjectId;
 const RECIPES_COLLECTION = 'recipes';
 
 const app = express();
 app.use(bodyParser.json());
+
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions))
+
 
 // database variable outside of the database connection callback to reuse the connection pool in the app
 let db;
@@ -49,6 +58,7 @@ function handleError(res, reason, msg, code) {
  */
 
 app.get('/api/recipes', (req, res) => {
+  console.log(`GET /api/recipes`);
   db.collection(RECIPES_COLLECTION).find({}).toArray((err, doc) => {
     if (err) {
       handleError(res, err.message, 'Failed to get recipes');

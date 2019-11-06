@@ -41,11 +41,10 @@ export class RecipeListComponent implements OnInit {
     });
   }
 
-  private getIndexOfRecipe = (recipeId: string) => {
-    return this.recipes.findIndex(recipe => {
+  private getIndexOfRecipe = (recipeId: string) =>
+    this.recipes.findIndex(recipe => {
       return recipe._id === recipeId;
     });
-  };
 
   public selectRecipe(recipe: Recipe): void {
     this.selectedRecipe = recipe;

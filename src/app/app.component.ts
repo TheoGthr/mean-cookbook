@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'cb-app-root',
   styleUrls: ['./app.component.scss'],
   template: `
-    <cb-recipe-list></cb-recipe-list>
+    <cb-nav></cb-nav>
   `
 })
 export class AppComponent {
