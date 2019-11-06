@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
         id="sidenav"
       >
         <mat-toolbar class="cb-home" color='primary' z-elevation-8>
-          <a routerLink="recipes">Gen</a>
+          <a routerLink="recipes">Cookbook</a>
         </mat-toolbar>
         <a routerLink="recipes" mat-button>Recipes</a>
       </mat-sidenav>

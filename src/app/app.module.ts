@@ -30,6 +30,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [AppComponent, RecipeDetailsComponent, RecipeListComponent],
   imports: [
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     HttpClientModule,
     FormsModule,
