@@ -8,6 +8,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: 'recipes/:id',      component: RecipeDetailsComponent },
+  {
+    path: 'recipes',
+    component: RecipeListComponent,
+    data: { title: 'Heroes List' }
+  },
+  { path: '',
+    redirectTo: '/recipes',
+    pathMatch: 'full'
+  },
+  { path: '**', component: RecipeListComponent } // PageNotFoundComponent }
+];
+
+
 
 @NgModule({
   declarations: [AppComponent, RecipeDetailsComponent, RecipeListComponent],
