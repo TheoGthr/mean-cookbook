@@ -19,7 +19,10 @@ export class RecipeService {
   public getRecipes(): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(this.recipesUrl).pipe(
       map(res => res || []),
-      catchError(error => throwError(error.message || error))
+      catchError(error => {
+        this.handleError(error);
+        return throwError(error.message || error);
+      })
     );
   }
 
@@ -29,7 +32,10 @@ export class RecipeService {
   public createRecipe(recipe: Recipe): Observable<Recipe> {
     return this.http
       .post<Recipe>(this.recipesUrl, recipe)
-      .pipe(catchError(error => throwError(error.message || error)));
+      .pipe(catchError(error => {
+        this.handleError(error);
+        return throwError(error.message || error);
+      }));
   }
 
   private handleError(error: any) {
