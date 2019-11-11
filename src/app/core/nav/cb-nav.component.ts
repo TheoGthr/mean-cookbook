@@ -11,15 +11,19 @@ import { Router } from '@angular/router';
         [opened]="true"
         id="sidenav"
       >
-        <mat-toolbar class="cb-home" color='primary' z-elevation-8>
-          <a routerLink="recipes">Cookbook</a>
+        <mat-toolbar color='primary' class="left-toolbar mat-accent" z-elevation-8>
+          <i class="material-icons">
+            menu_book
+          </i>
         </mat-toolbar>
-        <a routerLink="recipes" mat-button>Recipes</a>
       </mat-sidenav>
       <mat-sidenav-content class="sidenav-content">
         <mat-toolbar color='primary'>
+          <h1>My Cookbook</h1>
         </mat-toolbar>
-        <router-outlet></router-outlet>
+        <div id="routes">
+          <router-outlet></router-outlet>
+        </div>
       </mat-sidenav-content>
     </mat-sidenav-container>
   `

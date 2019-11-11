@@ -8,7 +8,7 @@ import { Recipe } from '../recipe';
   template: `
     <div class="row">
       <div class="col-md-5">
-        <h2>Recipes</h2>
+        <h2 class="mat-h2">My recipes</h2>
         <ul class="list-group">
           <li
             class="list-group-item"
@@ -19,7 +19,19 @@ import { Recipe } from '../recipe';
             {{ recipe.name }}
           </li>
         </ul>
-        <button class="btn btn-warning" (click)="createNewRecipe()">New</button>
+        <table mat-table [dataSource]="recipes" class="mat-elevation-z8">
+          <!-- Item Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Item </th>
+            <td mat-cell *matCellDef="let recipe"> {{ recipe.name }} </td>
+            <td mat-footer-cell *matFooterCellDef> Total </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+        <!--button class="btn btn-warning" (click)="createNewRecipe()">New</button-->
       </div>
       <div class="col-md-5 col-md-offset-2">
         <cb-recipe-details [recipe]="selectedRecipe"> </cb-recipe-details>
@@ -30,6 +42,7 @@ import { Recipe } from '../recipe';
 export class RecipeListComponent implements OnInit {
   public recipes: Recipe[];
   public selectedRecipe: Recipe;
+  displayedColumns: string[] = ['name'];
 
   constructor(private recipeService: RecipeService) {}
 
