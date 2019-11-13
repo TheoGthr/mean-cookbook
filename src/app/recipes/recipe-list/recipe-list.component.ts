@@ -7,29 +7,24 @@ import { Recipe } from '../recipe';
   styleUrls: ['./recipe-list.component.scss'],
   template: `
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-5 list-main">
         <h2 class="mat-h2">My recipes</h2>
-        <ul class="list-group">
-          <li
-            class="list-group-item"
-            *ngFor="let recipe of recipes"
-            (click)="selectRecipe(recipe)"
-            [class.active]="recipe === selectedRecipe"
-          >
-            {{ recipe.name }}
-          </li>
-        </ul>
+        <button mat-raised-button>New recipe</button>
         <table mat-table [dataSource]="recipes" class="mat-elevation-z8">
-          <!-- Item Column -->
+          <!-- Position Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td mat-cell *matCellDef="let recipe"> {{recipe.id}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Item </th>
+            <th mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let recipe"> {{ recipe.name }} </td>
-            <td mat-footer-cell *matFooterCellDef> Total </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
         </table>
         <!--button class="btn btn-warning" (click)="createNewRecipe()">New</button-->
       </div>
@@ -42,7 +37,7 @@ import { Recipe } from '../recipe';
 export class RecipeListComponent implements OnInit {
   public recipes: Recipe[];
   public selectedRecipe: Recipe;
-  displayedColumns: string[] = ['name'];
+  displayedColumns: string[] = ['id', 'name'];
 
   constructor(private recipeService: RecipeService) {}
 
@@ -57,7 +52,7 @@ export class RecipeListComponent implements OnInit {
   private getIndexOfRecipe = (recipeId: string) =>
     this.recipes.findIndex(recipe => {
       return recipe._id === recipeId;
-    });
+    })
 
   public selectRecipe(recipe: Recipe): void {
     this.selectedRecipe = recipe;
