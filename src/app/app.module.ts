@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.component';
 import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
+import { RecipesModule } from './recipes/recipes.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
@@ -12,7 +13,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoreModule } from './core/core.module';
 
 const appRoutes: Routes = [
-  { path: 'recipes/:id',      component: RecipeDetailsComponent },
+  // { path: 'recipes/:id', component: RecipeDetailsComponent },
   {
     path: 'recipes',
     component: RecipeListComponent,
@@ -28,7 +29,7 @@ const appRoutes: Routes = [
 
 
 @NgModule({
-  declarations: [AppComponent, RecipeDetailsComponent, RecipeListComponent],
+  declarations: [AppComponent],
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
     FormsModule,
     MaterialModule,
     BrowserAnimationsModule,
-    CoreModule
+    CoreModule,
+    RecipesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

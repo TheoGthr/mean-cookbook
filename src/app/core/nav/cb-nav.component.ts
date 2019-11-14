@@ -6,17 +6,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./cb-nav.component.scss'],
   template: `
     <mat-sidenav-container fullscreen class="app-sidenav">
-      <mat-sidenav
-        mode="side"
-        [opened]="true"
-        id="sidenav"
-      >
-        <mat-toolbar color='primary' class="left-toolbar mat-accent" z-elevation-8>
-          <i class="material-icons">
-            menu_book
-          </i>
-        </mat-toolbar>
-      </mat-sidenav>
       <mat-sidenav-content class="sidenav-content">
         <mat-toolbar color='primary'>
           <h1>My Cookbook</h1>
