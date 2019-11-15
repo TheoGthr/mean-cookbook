@@ -11,3 +11,5 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+
+  //https://stackoverflow.com/questions/53434713/error-cant-resolve-all-parameters-for-applicationmodule

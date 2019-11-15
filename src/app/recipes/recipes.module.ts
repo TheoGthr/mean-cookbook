@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { MaterialModule } from '../material.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { RecipeService } from './recipe.service';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { BrowserModule } from '@angular/platform-browser';
   ],
   exports: [
     RecipeListComponent
-  ]
+  ],
+  providers: [RecipeService]
 })
 export class RecipesModule { }

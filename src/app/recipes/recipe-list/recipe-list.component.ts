@@ -36,42 +36,7 @@ import { Recipe, RecipeTypes } from '../../models';
     </div>
   `
 })
-export class RecipeListComponent implements OnInit {
+export class RecipeListComponent {
   public recipes: Recipe[];
-  public selectedRecipe: Recipe;
   public displayedColumns: string[] = ['name', 'type'];
-
-  private RecipeTypes = RecipeTypes;
-
-  constructor(private recipeService: RecipeService) {}
-
-  ngOnInit() {
-    this.recipeService.getRecipes().subscribe((recipes: Recipe[]) => {
-      this.recipes = recipes.map(recipe => {
-        return recipe;
-      });
-    });
-  }
-
-  private getIndexOfRecipe = (recipeId: string) =>
-    this.recipes.findIndex(recipe => {
-      return recipe._id === recipeId;
-    });
-
-  public selectRecipe(recipe: Recipe): void {
-    this.selectedRecipe = recipe;
-  }
-
-  public createNewRecipe(): void {
-    const recipe: Recipe = {
-      name: '',
-      ingredients: '',
-      process: '',
-      time: new Date(0),
-      type: RecipeTypes.MISC
-    };
-
-    // By default, a newly-created recipe will have the selected state.
-    this.selectRecipe(recipe);
-  }
 }

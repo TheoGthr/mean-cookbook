@@ -17,8 +17,4 @@ import { Router } from '@angular/router';
     </mat-sidenav-container>
   `
 })
-export class CbNavComponent {
-  public constructor(
-    private router: Router
-  ) {}
-}
+export class CbNavComponent {}
