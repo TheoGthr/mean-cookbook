@@ -11,12 +11,12 @@ export class RecipeService {
   private baseUrl = 'http://localhost:8080';
   private recipesUrl = `${this.baseUrl}/api/recipes`;
 
-  constructor(private http: HttpClient) {}
+  // constructor(private http: HttpClient) {}
 
   /**
    * GET /api/recipes
    */
-  public getRecipes(): Observable<Recipe[]> {
+  /*public getRecipes(): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(this.recipesUrl).pipe(
       map(res => res || []),
       catchError(error => {
@@ -24,12 +24,12 @@ export class RecipeService {
         return throwError(error.message || error);
       })
     );
-  }
+  }*/
 
   /**
    * POST /api/recipes
    */
-  public createRecipe(recipe: Recipe): Observable<Recipe> {
+  /*public createRecipe(recipe: Recipe): Observable<Recipe> {
     return this.http
       .post<Recipe>(this.recipesUrl, recipe)
       .pipe(catchError(error => {
@@ -45,5 +45,5 @@ export class RecipeService {
       ? `${error.status} - ${error.statusText}`
       : 'Server error';
     console.error(errMsg); // log to console instead
-  }
+  }*/
 }
