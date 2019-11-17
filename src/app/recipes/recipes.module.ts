@@ -1,3 +1,4 @@
+import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
@@ -14,10 +15,12 @@ import { HttpClient } from '@angular/common/http';
     BrowserModule
   ],
   declarations: [
-    RecipeListComponent
+    RecipeListComponent,
+    RecipeFormComponent
   ],
   exports: [
-    RecipeListComponent
+    RecipeListComponent,
+    RecipeFormComponent
   ],
   providers: [RecipeService]
 })
