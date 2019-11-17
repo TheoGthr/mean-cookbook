@@ -36,7 +36,17 @@ import { Recipe, RecipeTypes } from '../../models';
     </div>
   `
 })
-export class RecipeListComponent {
+export class RecipeListComponent implements OnInit {
   public recipes: Recipe[];
   public displayedColumns: string[] = ['name', 'type'];
+
+  constructor(
+    private recipeService: RecipeService
+  ) {}
+
+    ngOnInit() {
+      this.recipeService.getRecipes().subscribe((recipes) => {
+        this.recipes = recipes;
+      });
+    }
 }
