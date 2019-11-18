@@ -11,7 +11,7 @@ import { Recipe, RecipeCategories } from 'src/app/models';
     <mat-card>
       <form ngSubmit="onSubmit()">
         <!-- Name -->
-        <mat-form-field class="form-group">
+        <mat-form-field>
           <input
             matInput
             type="text"
@@ -20,33 +20,35 @@ import { Recipe, RecipeCategories } from 'src/app/models';
           />
         </mat-form-field>
 
-        <!-- Category -->
-        <mat-form-field class="form-group">
-          <mat-label>Category</mat-label>
-          <mat-select>
-            <mat-option
-              *ngFor="let opt of RecipeCategoriesKeys"
-              [value]="opt"
-            >
-              {{ RecipeCategories[opt] }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="row-flex">
+          <!-- Category -->
+          <mat-form-field class="first-row-flex">
+            <mat-label>Category</mat-label>
+            <mat-select>
+              <mat-option
+                *ngFor="let opt of RecipeCategoriesKeys"
+                [value]="opt"
+              >
+                {{ RecipeCategories[opt] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <!-- Cook Duration -->
-        <mat-form-field class="form-group">
-          <input
-            matInput
-            class="number-time"
-            type="number"
-            placeholder="Cook time"
-            formControlName="cookTime"
-          />
-          <span matSuffix>&nbsp;min</span>
-        </mat-form-field>
+          <!-- Cook Duration -->
+          <mat-form-field>
+            <input
+              matInput
+              class="number-time"
+              type="number"
+              placeholder="Cook time"
+              formControlName="cookTime"
+            />
+            <span matSuffix>&nbsp;min</span>
+          </mat-form-field>
+        </div>
 
         <!-- Ingredients -->
-        <mat-form-field class="form-group">
+        <mat-form-field>
           <input
             matInput
             type="text"
@@ -56,7 +58,7 @@ import { Recipe, RecipeCategories } from 'src/app/models';
         </mat-form-field>
 
         <!-- Directions -->
-        <mat-form-field class="form-group">
+        <mat-form-field>
           <input
             matInput
             type="text"
@@ -66,7 +68,7 @@ import { Recipe, RecipeCategories } from 'src/app/models';
         </mat-form-field>
 
         <!-- Add Button -->
-        <div class="form-group">
+        <div>
           <button type="submit" mat-raised-button>Add</button>
         </div>
       </form>

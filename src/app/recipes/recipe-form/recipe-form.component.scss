@@ -1,13 +1,27 @@
 form {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 form > * {
-  width: 100%;
+  width: 80%;
 }
 
 .number-time {
   -moz-appearance: textfield;
   text-align: right;
+}
+
+.row-flex {
+  display: flex;
+  flex-direction: row;
+  
+  & > * {
+    width: 100%;
+  }
+
+  .first-row-flex {
+    padding-right: 1%;
+  }
 }
