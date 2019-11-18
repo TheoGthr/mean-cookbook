@@ -29,14 +29,14 @@ export class RecipeService {
   /**
    * POST /api/recipes
    */
-  /*public createRecipe(recipe: Recipe): Observable<Recipe> {
+  public createRecipe(recipe: Recipe): Observable<Recipe> {
     return this.http
       .post<Recipe>(this.recipesUrl, recipe)
       .pipe(catchError(error => {
         this.handleError(error);
         return throwError(error.message || error);
       }));
-  }*/
+  }
 
   private handleError(error: any) {
     const errMsg = error.message

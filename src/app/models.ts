@@ -1,17 +1,17 @@
 export interface Recipe {
   _id?: string;
   name: string;
-  time: Date;
+  cookDuration: number;
   ingredients: string;
-  process: string;
-  type: RecipeTypes;
+  directions: string[];
+  category: RecipeCategories;
 }
 
-export enum RecipeTypes {
-  APPETIZER = 'APPETIZER',
-  STARTER = 'STARTER',
-  MAIN = 'MAIN',
-  DESSERT = 'DESSERT',
-  BEVERAGE = 'BEVERAGE',
-  MISC = 'MISC'
+export enum RecipeCategories {
+  APPETIZER = 'Appetizer',
+  STARTER = 'Starter',
+  MAIN = 'Main',
+  DESSERT = 'Dessert',
+  BEVERAGE = 'Beverage',
+  MISC = 'Misc.'
 }

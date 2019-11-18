@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
     <mat-sidenav-container fullscreen class="app-sidenav">
       <mat-sidenav-content class="sidenav-content">
         <mat-toolbar color='primary'>
-          <h1>My Cookbook</h1>
+          <a routerLink="/" class="logo">My Cookbook</a>
         </mat-toolbar>
         <div id="routes">
           <router-outlet></router-outlet>

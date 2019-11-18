@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../recipe.service';
-import { Recipe, RecipeTypes } from '../../models';
+import { Recipe, RecipeCategories } from '../../models';
 
 @Component({
   selector: 'cb-recipe-list',
