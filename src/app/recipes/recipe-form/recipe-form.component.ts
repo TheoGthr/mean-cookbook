@@ -7,7 +7,12 @@ import { Recipe, RecipeCategories } from 'src/app/models';
   selector: 'cb-recipe-form',
   styleUrls: ['./recipe-form.component.scss'],
   template: `
-    <h2 class="mat-h2">New recipe</h2>
+    <h2 class="mat-h2">
+      <button mat-icon-button aria-label="Return" routerLink="/recipes">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      New recipe
+    </h2>
     <mat-card>
       <form ngSubmit="onSubmit()">
         <!-- Name -->
