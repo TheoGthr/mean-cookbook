@@ -48,6 +48,22 @@ import { Recipe, RecipeCategories } from 'src/app/models';
         </div>
 
         <!-- Ingredients -->
+        <!--h3 class="mat-h3">
+          Ingredients
+        </h3>
+        <button
+          mat-raised-button
+          color="primary"
+          click="onAddIngredient()"
+        >
+          Add ingredient
+        </button>
+        <div *ngFor="let ig of ingredients">
+          <input
+            type="text"
+            formControlName="ingredients"
+          />
+        </div-->
         <mat-form-field>
           <input
             matInput
@@ -67,9 +83,9 @@ import { Recipe, RecipeCategories } from 'src/app/models';
           />
         </mat-form-field>
 
-        <!-- Add Button -->
+        <!-- Create Button -->
         <div>
-          <button type="submit" mat-raised-button>Add</button>
+          <button type="submit" mat-raised-button>Create</button>
         </div>
       </form>
     </mat-card>
@@ -79,18 +95,25 @@ export class RecipeFormComponent {
   public form: FormGroup;
   public RecipeCategories = RecipeCategories;
   public RecipeCategoriesKeys: string[] = Object.keys(this.RecipeCategories);
+  public ingredients: string[] = [''];
 
   constructor(
     private fb: FormBuilder,
     private recipeService: RecipeService
   ) {
     this.form = this.fb.group({
-        "firstName": new FormControl("", Validators.required),
-        "password": new FormControl("", Validators.required)
+        "name": new FormControl("", Validators.required),
+        "cookDuration": new FormControl("", Validators.required),
+        "ingredients": new FormControl("", Validators.required),
+        "category": new FormControl("", Validators.required)
     });
   }
 
   public onSubmit() {
     this.recipeService.createRecipe(this.form.value as Recipe);
+  }
+
+  public onAddIngredient() {
+    this.ingredients.push('');
   }
 }
