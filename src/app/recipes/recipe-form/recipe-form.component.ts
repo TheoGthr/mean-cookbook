@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
 import { Recipe, RecipeCategories } from 'src/app/models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cb-recipe-form',
@@ -14,7 +15,10 @@ import { Recipe, RecipeCategories } from 'src/app/models';
       New recipe
     </h2>
     <mat-card>
-      <form ngSubmit="onSubmit()">
+      <form
+        [formGroup]="recipeForm"
+        (ngSubmit)="onSubmit()"
+      >
         <!-- Name -->
         <mat-form-field>
           <input
@@ -29,7 +33,7 @@ import { Recipe, RecipeCategories } from 'src/app/models';
           <!-- Category -->
           <mat-form-field class="first-row-flex">
             <mat-label>Category</mat-label>
-            <mat-select>
+            <mat-select formControlName="category">
               <mat-option
                 *ngFor="let opt of RecipeCategoriesKeys"
                 [value]="opt"
@@ -53,6 +57,22 @@ import { Recipe, RecipeCategories } from 'src/app/models';
         </div>
 
         <!-- Ingredients -->
+        <!--h3 class="mat-h3">
+          Ingredients
+        </h3>
+        <button
+          mat-raised-button
+          color="primary"
+          click="onAddIngredient()"
+        >
+          Add ingredient
+        </button>
+        <div *ngFor="let ig of ingredients">
+          <input
+            type="text"
+            formControlName="ingredients"
+          />
+        </div-->
         <mat-form-field>
           <input
             matInput
@@ -72,30 +92,46 @@ import { Recipe, RecipeCategories } from 'src/app/models';
           />
         </mat-form-field>
 
-        <!-- Add Button -->
+        <!-- Create Button -->
         <div>
-          <button type="submit" mat-raised-button>Add</button>
+          <button
+            type="submit"
+            mat-raised-button
+            [disabled]="!recipeForm.valid"
+          >Create</button>
         </div>
       </form>
     </mat-card>
   `
 })
 export class RecipeFormComponent {
-  public form: FormGroup;
+  public recipeForm: FormGroup;
   public RecipeCategories = RecipeCategories;
   public RecipeCategoriesKeys: string[] = Object.keys(this.RecipeCategories);
+  public ingredients: string[] = [''];
 
   constructor(
     private fb: FormBuilder,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private router: Router
   ) {
-    this.form = this.fb.group({
-        "firstName": new FormControl("", Validators.required),
-        "password": new FormControl("", Validators.required)
+    this.recipeForm = this.fb.group({
+        "name": new FormControl("", Validators.required),
+        "cookTime": new FormControl("", Validators.required),
+        "ingredients": new FormControl("", Validators.required),
+        "directions": new FormControl("", Validators.required),
+        "category": new FormControl("", Validators.required)
     });
   }
 
   public onSubmit() {
-    this.recipeService.createRecipe(this.form.value as Recipe);
+    console.log(this.recipeForm.value as Recipe);
+    this.recipeService.createRecipe(this.recipeForm.value as Recipe).subscribe(() => {
+      this.router.navigate(['recipes']);
+    });
+  }
+
+  public onAddIngredient() {
+    this.ingredients.push('');
   }
 }

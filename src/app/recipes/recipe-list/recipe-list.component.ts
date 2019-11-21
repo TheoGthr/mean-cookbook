@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../recipe.service';
 import { Recipe, RecipeCategories } from '../../models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cb-recipe-list',
@@ -25,28 +26,34 @@ import { Recipe, RecipeCategories } from '../../models';
         </ng-container>
 
         <!-- Type Column -->
-        <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef>Type</th>
-          <td mat-cell *matCellDef="let recipe"> {{ recipe.type }} </td>
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef>Category</th>
+          <td mat-cell *matCellDef="let recipe"> {{ RecipeCategories[recipe.category] }} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelectRecipe(row._id)"></tr>
       </table>
     </div>
   `
 })
 export class RecipeListComponent implements OnInit {
   public recipes: Recipe[];
-  public displayedColumns: string[] = ['name', 'type'];
+  public displayedColumns: string[] = ['name', 'category'];
+  public RecipeCategories = RecipeCategories;
 
   constructor(
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private router: Router
   ) { }
 
     ngOnInit() {
       this.recipeService.getRecipes().subscribe((recipes) => {
         this.recipes = recipes;
       });
+    }
+
+    public onSelectRecipe(id: string) {
+      this.router.navigate([`/details`], { queryParams: { id } });
     }
 }
