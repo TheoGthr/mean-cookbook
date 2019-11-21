@@ -15,10 +15,25 @@ export class RecipeService {
 
   /**
    * GET /api/recipes
+   * Find all the recipes
    */
   public getRecipes(): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(this.recipesUrl).pipe(
       map(res => res || []),
+      catchError(error => {
+        this.handleError(error);
+        return throwError(error.message || error);
+      })
+    );
+  }
+
+  /**
+   * GET /api/recipes/:id
+   * Find a recipe by id
+   */
+  public getRecipeDetails(id: string): Observable<Recipe> {
+    return this.http.get<Recipe>(`${this.recipesUrl}/`, { params: { id } }).pipe(
+      map(res => res),
       catchError(error => {
         this.handleError(error);
         return throwError(error.message || error);

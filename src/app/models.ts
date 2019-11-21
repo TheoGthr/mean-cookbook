@@ -1,9 +1,9 @@
 export interface Recipe {
   _id?: string;
   name: string;
-  cookDuration: number;
+  cookTime: number;
   ingredients: string;
-  directions: string[];
+  directions: string;
   category: RecipeCategories;
 }
 
