@@ -103,7 +103,7 @@ app.get("/api/recipes/:id", (req, res) => {
       if (err) {
         handleError(res, err.message, "Failed to get recipe");
       } else {
-        res.status(200).json(doc.ops[0]);
+        res.status(200).json(doc);
       }
     }
   );

@@ -9,7 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./recipe-form.component.scss'],
   template: `
     <h2 class="mat-h2">
-      <button mat-icon-button aria-label="Return" routerLink="/recipes">
+      <button
+        mat-icon-button
+        routerLink="/recipes"
+        matTooltip="Return"
+      >
         <mat-icon>arrow_back</mat-icon>
       </button>
       New recipe
@@ -116,11 +120,11 @@ export class RecipeFormComponent {
     private router: Router
   ) {
     this.recipeForm = this.fb.group({
-        "name": new FormControl("", Validators.required),
-        "cookTime": new FormControl("", Validators.required),
-        "ingredients": new FormControl("", Validators.required),
-        "directions": new FormControl("", Validators.required),
-        "category": new FormControl("", Validators.required)
+      name: new FormControl('', Validators.required),
+      cookTime: new FormControl('', Validators.required),
+      ingredients: new FormControl('', Validators.required),
+      directions: new FormControl('', Validators.required),
+      category: new FormControl('', Validators.required)
     });
   }
 

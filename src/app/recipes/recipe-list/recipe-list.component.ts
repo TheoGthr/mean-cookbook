@@ -32,7 +32,12 @@ import { Router } from '@angular/router';
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelectRecipe(row._id)"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns;"
+          (click)="onSelectRecipe(row._id)"
+          class="rows"
+        ></tr>
       </table>
     </div>
   `

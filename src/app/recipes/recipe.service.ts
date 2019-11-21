@@ -32,7 +32,7 @@ export class RecipeService {
    * Find a recipe by id
    */
   public getRecipeDetails(id: string): Observable<Recipe> {
-    return this.http.get<Recipe>(`${this.recipesUrl}/`, { params: { id } }).pipe(
+    return this.http.get<Recipe>(`${this.recipesUrl}/${id}`).pipe(
       map(res => res),
       catchError(error => {
         this.handleError(error);

@@ -1,3 +1,4 @@
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CbNavComponent } from './nav/cb-nav.component';
@@ -11,11 +12,13 @@ import { NotFoundComponent } from './not-found/not-found.component';
   ],
   declarations: [
     CbNavComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ConfirmDialogComponent
   ],
   exports: [
     CbNavComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ConfirmDialogComponent
   ]
 })
 export class CoreModule { }
