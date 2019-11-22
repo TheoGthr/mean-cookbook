@@ -1,22 +1,18 @@
-import { ConfirmDialogComponent } from './../../core/confirm-dialog/confirm-dialog.component';
-import { RecipeCategories } from './../../models';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { RecipeService } from '../recipe.service';
-import { Recipe } from 'src/app/models';
-import { MatDialog } from '@angular/material';
+import { ConfirmDialogComponent } from "./../../core/confirm-dialog/confirm-dialog.component";
+import { RecipeCategories } from "./../../models";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { RecipeService } from "../recipe.service";
+import { Recipe } from "src/app/models";
+import { MatDialog } from "@angular/material";
 
 @Component({
-  selector: 'cb-recipe-details',
-  styleUrls: ['./recipe-details.component.scss'],
+  selector: "cb-recipe-details",
+  styleUrls: ["./recipe-details.component.scss"],
   template: `
     <div *ngIf="recipe">
       <h2 class="mat-h2">
-        <button
-          mat-icon-button
-          routerLink="/recipes"
-          matTooltip="Return"
-        >
+        <button mat-icon-button routerLink="/recipes" matTooltip="Return">
           <mat-icon>arrow_back</mat-icon>
         </button>
         {{ recipe.name }}
@@ -24,7 +20,7 @@ import { MatDialog } from '@angular/material';
           mat-raised-button
           color="warn"
           class="delete-button"
-          (click)="null"
+          (click)="openDialog()"
         >
           Delete
         </button>
@@ -45,19 +41,18 @@ export class RecipeDetailsComponent implements OnInit {
   constructor(
     private recipeService: RecipeService,
     private route: ActivatedRoute,
+    private router: Router,
     public dialog: MatDialog
   ) {
-    this.route.queryParams
-      .subscribe(params => {
-        this.id = params.id;
-      });
+    this.route.queryParams.subscribe(params => {
+      this.id = params.id;
+    });
   }
 
   public ngOnInit() {
-    this.recipeService.getRecipeDetails(this.id)
-      .subscribe((recipe: Recipe) => {
-        this.recipe = recipe;
-      });
+    this.recipeService.getRecipeDetails(this.id).subscribe((recipe: Recipe) => {
+      this.recipe = recipe;
+    });
   }
 
   public isRecipeLoaded() {
@@ -65,13 +60,14 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   public openDialog(): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '250px'
-    });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
+      if (result) {
+        this.recipeService
+          .deleteRecipe(this.id)
+          .subscribe(() => this.router.navigate(["/recipes"]));
+      }
     });
   }
 }

@@ -53,6 +53,20 @@ export class RecipeService {
       }));
   }
 
+  /**
+   * DELETE /api/recipes/:id
+   * Find a recipe by id
+   */
+  public deleteRecipe(id: string): Observable<string> {
+    return this.http.delete<string>(`${this.recipesUrl}/${id}`).pipe(
+      map(res => res),
+      catchError(error => {
+        this.handleError(error);
+        return throwError(error.message || error);
+      })
+    );
+  }
+
   private handleError(error: any) {
     const errMsg = error.message
       ? error.message

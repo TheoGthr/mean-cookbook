@@ -1,28 +1,26 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { RecipeService } from '../recipe.service';
-import { Recipe, RecipeCategories } from 'src/app/models';
-import { Router } from '@angular/router';
+import { Component } from "@angular/core";
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl
+} from "@angular/forms";
+import { RecipeService } from "../recipe.service";
+import { Recipe, RecipeCategories } from "src/app/models";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'cb-recipe-form',
-  styleUrls: ['./recipe-form.component.scss'],
+  selector: "cb-recipe-form",
+  styleUrls: ["./recipe-form.component.scss"],
   template: `
     <h2 class="mat-h2">
-      <button
-        mat-icon-button
-        routerLink="/recipes"
-        matTooltip="Return"
-      >
+      <button mat-icon-button routerLink="/recipes" matTooltip="Return">
         <mat-icon>arrow_back</mat-icon>
       </button>
       New recipe
     </h2>
     <mat-card>
-      <form
-        [formGroup]="recipeForm"
-        (ngSubmit)="onSubmit()"
-      >
+      <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
         <!-- Name -->
         <mat-form-field>
           <input
@@ -102,7 +100,9 @@ import { Router } from '@angular/router';
             type="submit"
             mat-raised-button
             [disabled]="!recipeForm.valid"
-          >Create</button>
+          >
+            Create
+          </button>
         </div>
       </form>
     </mat-card>
@@ -112,7 +112,7 @@ export class RecipeFormComponent {
   public recipeForm: FormGroup;
   public RecipeCategories = RecipeCategories;
   public RecipeCategoriesKeys: string[] = Object.keys(this.RecipeCategories);
-  public ingredients: string[] = [''];
+  public ingredients: string[] = [""];
 
   constructor(
     private fb: FormBuilder,
@@ -120,22 +120,25 @@ export class RecipeFormComponent {
     private router: Router
   ) {
     this.recipeForm = this.fb.group({
-      name: new FormControl('', Validators.required),
-      cookTime: new FormControl('', Validators.required),
-      ingredients: new FormControl('', Validators.required),
-      directions: new FormControl('', Validators.required),
-      category: new FormControl('', Validators.required)
+      name: new FormControl("", Validators.required),
+      cookTime: new FormControl("", Validators.required),
+      ingredients: new FormControl("", Validators.required),
+      directions: new FormControl("", Validators.required),
+      category: new FormControl("", Validators.required)
     });
   }
 
   public onSubmit() {
-    console.log(this.recipeForm.value as Recipe);
-    this.recipeService.createRecipe(this.recipeForm.value as Recipe).subscribe(() => {
-      this.router.navigate(['recipes']);
-    });
+    this.recipeService
+      .createRecipe(this.recipeForm.value as Recipe)
+      .subscribe(() => {
+        this.router.navigate(["recipes"], {
+          queryParams: { deleted: "1" }
+        });
+      });
   }
 
   public onAddIngredient() {
-    this.ingredients.push('');
+    this.ingredients.push("");
   }
 }

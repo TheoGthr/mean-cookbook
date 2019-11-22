@@ -1,33 +1,24 @@
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Inject, Component, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialogRef } from "@angular/material";
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'cb-confirm-dialog',
+  selector: "cb-confirm-dialog",
   template: `
-    <h1 mat-dialog-title>{{ title }}</h1>
-    <!--div mat-dialog-content>
-    </div-->
+    <div class="flex-title">
+      <h1 mat-dialog-title>Are you sure?</h1>
+    </div>
     <div mat-dialog-actions>
       <button mat-button (click)="onNoClick()">No</button>
-      <button mat-button (click)="onYesClick()" cdkFocusInitial>Yes</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Yes</button>
     </div>
   `
 })
 export class ConfirmDialogComponent {
-  @Input() title: string;
-  @Output() event = new EventEmitter<boolean>();
-
   constructor(
-    public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data
+    public dialogRef: MatDialogRef<ConfirmDialogComponent>
   ) {}
 
   public onNoClick(): void {
-    this.dialogRef.close();
-  }
-  
-  public onYesClick(): void {
-    this.event.emit(true);
     this.dialogRef.close();
   }
 }

@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CbNavComponent } from './nav/cb-nav.component';
 import { MaterialModule } from '../material.module';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ConfirmSnackbarComponent } from './confirm-snackbar/confirm-snackbar.component';
 
 @NgModule({
   imports: [
@@ -13,12 +14,18 @@ import { NotFoundComponent } from './not-found/not-found.component';
   declarations: [
     CbNavComponent,
     NotFoundComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ConfirmSnackbarComponent
   ],
   exports: [
     CbNavComponent,
     NotFoundComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ConfirmSnackbarComponent
+  ],
+  entryComponents: [
+    ConfirmDialogComponent,
+    ConfirmSnackbarComponent
   ]
 })
 export class CoreModule { }

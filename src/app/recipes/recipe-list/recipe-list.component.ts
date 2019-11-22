@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { RecipeService } from '../recipe.service';
-import { Recipe, RecipeCategories } from '../../models';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { RecipeService } from "../recipe.service";
+import { Recipe, RecipeCategories } from "../../models";
+import { Router, ActivatedRoute } from "@angular/router";
+import { MatSnackBar } from '@angular/material';
+import { ConfirmSnackbarComponent } from 'src/app/core/confirm-snackbar/confirm-snackbar.component';
 
 @Component({
-  selector: 'cb-recipe-list',
-  styleUrls: ['./recipe-list.component.scss'],
+  selector: "cb-recipe-list",
+  styleUrls: ["./recipe-list.component.scss"],
   template: `
     <div class="list-container">
       <div>
         <h2 class="mat-h2">My recipes</h2>
-        <button
-          mat-raised-button
-          color="accent"
-          routerLink="new"
-        >
+        <button mat-raised-button color="accent" routerLink="new">
           New
         </button>
       </div>
@@ -22,19 +20,21 @@ import { Router } from '@angular/router';
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let recipe"> {{ recipe.name }} </td>
+          <td mat-cell *matCellDef="let recipe">{{ recipe.name }}</td>
         </ng-container>
 
         <!-- Type Column -->
         <ng-container matColumnDef="category">
           <th mat-header-cell *matHeaderCellDef>Category</th>
-          <td mat-cell *matCellDef="let recipe"> {{ RecipeCategories[recipe.category] }} </td>
+          <td mat-cell *matCellDef="let recipe">
+            {{ RecipeCategories[recipe.category] }}
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr
           mat-row
-          *matRowDef="let row; columns: displayedColumns;"
+          *matRowDef="let row; columns: displayedColumns"
           (click)="onSelectRecipe(row._id)"
           class="rows"
         ></tr>
@@ -44,21 +44,30 @@ import { Router } from '@angular/router';
 })
 export class RecipeListComponent implements OnInit {
   public recipes: Recipe[];
-  public displayedColumns: string[] = ['name', 'category'];
+  public displayedColumns: string[] = ["name", "category"];
   public RecipeCategories = RecipeCategories;
 
   constructor(
     private recipeService: RecipeService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    private _snackBar: MatSnackBar
+  ) {}
 
-    ngOnInit() {
-      this.recipeService.getRecipes().subscribe((recipes) => {
-        this.recipes = recipes;
-      });
-    }
+  ngOnInit() {
+    this.recipeService.getRecipes().subscribe(recipes => {
+      this.recipes = recipes;
+    });
+    this.route.queryParams.subscribe(params => {
+      if (params.deleted === "1") {
+        this._snackBar.openFromComponent(ConfirmSnackbarComponent, {
+          duration: 15 * 1000,
+        });
+      }
+    });
+  }
 
-    public onSelectRecipe(id: string) {
-      this.router.navigate([`/details`], { queryParams: { id } });
-    }
+  public onSelectRecipe(id: string) {
+    this.router.navigate(["/details"], { queryParams: { id } });
+  }
 }
