@@ -64,9 +64,11 @@ export class RecipeDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.recipeService
-          .deleteRecipe(this.id)
-          .subscribe(() => this.router.navigate(["/recipes"]));
+        this.recipeService.deleteRecipe(this.id).subscribe(() =>
+          this.router.navigate(["/recipes"], {
+            queryParams: { deleted: "1" }
+          })
+        );
       }
     });
   }

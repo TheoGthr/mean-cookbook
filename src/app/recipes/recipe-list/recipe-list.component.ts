@@ -61,7 +61,8 @@ export class RecipeListComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params.deleted === "1") {
         this._snackBar.openFromComponent(ConfirmSnackbarComponent, {
-          duration: 15 * 1000,
+          duration: 3 * 1000,
+          panelClass: ['success-bg']
         });
       }
     });

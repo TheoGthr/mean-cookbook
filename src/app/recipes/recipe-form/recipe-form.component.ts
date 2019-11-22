@@ -132,9 +132,7 @@ export class RecipeFormComponent {
     this.recipeService
       .createRecipe(this.recipeForm.value as Recipe)
       .subscribe(() => {
-        this.router.navigate(["recipes"], {
-          queryParams: { deleted: "1" }
-        });
+        this.router.navigate(["recipes"]);
       });
   }
 
