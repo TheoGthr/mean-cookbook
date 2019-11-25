@@ -12,10 +12,17 @@ import { MatDialog } from "@angular/material";
   template: `
     <div *ngIf="recipe">
       <h2 class="mat-h2">
-        <button mat-icon-button routerLink="/recipes" matTooltip="Return">
-          <mat-icon>arrow_back</mat-icon>
-        </button>
-        {{ recipe.name }}
+        <div class="title-and-button">
+          <button
+            mat-icon-button
+            routerLink="/recipes"
+            matTooltip="Return"
+            matTooltipPosition="above"
+          >
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          {{ recipe.name }}
+        </div>
         <button
           mat-raised-button
           color="warn"
@@ -25,11 +32,26 @@ import { MatDialog } from "@angular/material";
           Delete
         </button>
       </h2>
-      <h3 class="mat-h3">{{ RecipeCategories[recipe.category] }}</h3>
+      <h3 class="mat-h3 title-and-button"><mat-icon>menu_book</mat-icon> {{ RecipeCategories[recipe.category] }}</h3>
+      <h3 class="mat-h3 title-and-button"><mat-icon>timer</mat-icon> {{ recipe.cookTime }}min</h3>
       <mat-divider></mat-divider>
-      <p>Cook time: {{ recipe.cookTime }}min</p>
-      <p>Ingredients: {{ recipe.ingredients }}</p>
-      <p>Directions: {{ recipe.directions }}</p>
+
+      <mat-card>
+        <h2 class="mat-h2">Ingredients</h2>
+        <mat-list>
+          <mat-list-item *ngFor="let ingredient of recipe.ingredients">
+            <mat-icon mat-list-icon>add</mat-icon>
+            {{ ingredient.label }} : {{ ingredient.quantity }}
+          </mat-list-item>
+        </mat-list>
+        <h2 class="mat-h2">Directions</h2>
+        <mat-list>
+          <mat-list-item *ngFor="let dir of recipe.directions">
+            <mat-icon mat-list-icon>add</mat-icon>
+            {{ dir }}
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
     </div>
   `
 })

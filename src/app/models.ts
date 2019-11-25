@@ -2,9 +2,14 @@ export interface Recipe {
   _id?: string;
   name: string;
   cookTime: number;
-  ingredients: string;
-  directions: string;
+  ingredients: Ingredient[];
+  directions: string[];
   category: RecipeCategories;
+}
+
+export interface Ingredient {
+  label: string;
+  quantity: string;
 }
 
 export enum RecipeCategories {

@@ -3,10 +3,11 @@ import {
   FormGroup,
   FormBuilder,
   Validators,
-  FormControl
+  FormControl,
+  FormArray
 } from "@angular/forms";
 import { RecipeService } from "../recipe.service";
-import { Recipe, RecipeCategories } from "src/app/models";
+import { Recipe, RecipeCategories, Ingredient } from "src/app/models";
 import { Router } from "@angular/router";
 
 @Component({
@@ -59,43 +60,96 @@ import { Router } from "@angular/router";
         </div>
 
         <!-- Ingredients -->
-        <!--h3 class="mat-h3">
-          Ingredients
-        </h3>
-        <button
-          mat-raised-button
-          color="primary"
-          click="onAddIngredient()"
-        >
-          Add ingredient
-        </button>
-        <div *ngFor="let ig of ingredients">
-          <input
-            type="text"
-            formControlName="ingredients"
-          />
-        </div-->
-        <mat-form-field>
-          <input
-            matInput
-            type="text"
-            placeholder="Ingredients"
-            formControlName="ingredients"
-          />
-        </mat-form-field>
+        <div formArrayName="ingredients" class="divided">
+          <h3 class="mat-h3">
+            Ingredients
+            <mat-divider></mat-divider>
+          </h3>
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="addIngredient()"
+            [disabled]="isLastIngredientEmpty()"
+          >
+            Add
+          </button>
+          <button
+            mat-raised-button
+            type="button"
+            (click)="deleteIngredient()"
+            [disabled]="ingredients.length <= 1"
+          >
+            Remove
+          </button>
+          <mat-list>
+            <mat-list-item *ngFor="let ig of recipeForm.get('ingredients').controls; let i=index;">
+              <mat-icon mat-list-icon>add</mat-icon>
+              <div [formGroupName]="i" class="ingredients-fields">
+                <mat-form-field>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Ingredient"
+                    formControlName="label"
+                  />
+                </mat-form-field>
+                <mat-form-field>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Quantity"
+                    formControlName="quantity"
+                  />
+                </mat-form-field>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </div>
 
         <!-- Directions -->
-        <mat-form-field>
-          <input
-            matInput
-            type="text"
-            placeholder="Directions"
-            formControlName="directions"
-          />
-        </mat-form-field>
+        <div formArrayName="directions" class="divided">
+          <h3 class="mat-h3">
+            Directions
+            <mat-divider></mat-divider>
+          </h3>
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="addDirection()"
+            [disabled]="isLastDirectionEmpty()"
+          >
+            Add
+          </button>
+          <button
+            mat-raised-button
+            type="button"
+            (click)="deleteDirection()"
+            [disabled]="directions.length <= 1"
+          >
+            Remove
+          </button>
+          <mat-list>
+            <mat-list-item *ngFor="let ig of directions.controls; let i=index">
+              <mat-icon mat-list-icon>add</mat-icon>
+              <mat-form-field class="directions-field">
+                <textarea
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="2"
+                  matInput
+                  placeholder="Direction"
+                  [formControlName]="i"
+                ></textarea>
+              </mat-form-field>
+            </mat-list-item>
+          </mat-list>
+        </div>
 
         <!-- Create Button -->
-        <div>
+        <div class="submit-button">
           <button
             type="submit"
             mat-raised-button
@@ -112,7 +166,6 @@ export class RecipeFormComponent {
   public recipeForm: FormGroup;
   public RecipeCategories = RecipeCategories;
   public RecipeCategoriesKeys: string[] = Object.keys(this.RecipeCategories);
-  public ingredients: string[] = [""];
 
   constructor(
     private fb: FormBuilder,
@@ -120,12 +173,59 @@ export class RecipeFormComponent {
     private router: Router
   ) {
     this.recipeForm = this.fb.group({
-      name: new FormControl("", Validators.required),
-      cookTime: new FormControl("", Validators.required),
-      ingredients: new FormControl("", Validators.required),
-      directions: new FormControl("", Validators.required),
-      category: new FormControl("", Validators.required)
+      name: ["", Validators.required],
+      cookTime: ["", Validators.required],
+      ingredients: this.fb.array([
+        this.fb.group({
+          label: ["", Validators.required],
+          quantity: ["", Validators.required]
+        })
+      ]),
+      directions: this.fb.array([
+        this.fb.control("", Validators.required)
+      ]),
+      category: ["", Validators.required]
     });
+  }
+
+  public get ingredients() {
+    return this.recipeForm.get('ingredients') as FormArray;
+  }
+
+  public addIngredient() {
+    this.ingredients.push(this.fb.group({
+      label: ["", Validators.required],
+      quantity: ["", Validators.required]
+    }));
+  }
+
+  public isLastIngredientEmpty() {
+    const ig: Ingredient = this.ingredients.value[this.ingredients.length - 1];
+    return ig.label === "" || ig.quantity === "";
+  }
+
+  public deleteIngredient() {
+    if(this.ingredients.length > 1) {
+      this.ingredients.removeAt(-1);
+    }
+  }
+
+  public get directions() {
+    return this.recipeForm.get('directions') as FormArray;
+  }
+
+  public addDirection() {
+    this.directions.push(this.fb.control('', Validators.required));
+  }
+
+  public isLastDirectionEmpty() {
+    return this.directions.value[this.directions.length - 1] === ""
+  }
+
+  public deleteDirection() {
+    if(this.directions.length > 1) {
+      this.directions.removeAt(-1);
+    }
   }
 
   public onSubmit() {
@@ -134,9 +234,5 @@ export class RecipeFormComponent {
       .subscribe(() => {
         this.router.navigate(["recipes"]);
       });
-  }
-
-  public onAddIngredient() {
-    this.ingredients.push("");
   }
 }

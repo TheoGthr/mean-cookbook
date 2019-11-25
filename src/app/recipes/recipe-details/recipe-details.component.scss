@@ -1,3 +1,30 @@
 .delete-button {
   float: right;
 }
+
+.mat-h2, .mat-h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.mat-h2 {
+  justify-content: space-between;
+}
+
+.title-and-button {
+  display: flex;
+  align-items: center;
+
+  &.mat-h3 > mat-icon {
+    margin-right: 0.5%
+  }
+}
+
+mat-card {
+  margin-top: 1%;
+}
+
+mat-list {
+  margin-bottom: 2%;
+}
