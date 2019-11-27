@@ -3,13 +3,13 @@ import { Recipe } from '../models';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
-  // private baseUrl = 'http://localhost:8080'; // For dev only
-  private baseUrl = '';
+  private baseUrl = environment.apiUrl;
   private recipesUrl = `${this.baseUrl}/api/recipes`;
 
   constructor(private http: HttpClient) {}
