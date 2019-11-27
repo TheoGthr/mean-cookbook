@@ -9,12 +9,18 @@ const RECIPES_COLLECTION = "recipes";
 const app = express();
 app.use(bodyParser.json());
 
+// Create link to Angular build directory
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
+
+/* ONLY FOR DEV
 const corsOptions = {
   origin: "http://localhost:4200",
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 app.use(cors(corsOptions));
+*/
 
 // database variable outside of the database connection callback to reuse the connection pool in the app
 let db;
