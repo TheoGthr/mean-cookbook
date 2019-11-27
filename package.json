@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@angular/cli": "^8.3.19",
+    "@angular/compiler-cli": "~8.2.14",
     "@angular/animations": "8.2.14",
     "@angular/cdk": "8.2.3",
     "@angular/common": "8.2.14",
@@ -33,7 +35,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "hmr": "ng serve --configuration hmr"
+    "hmr": "ng serve --configuration hmr",
+    "postinstall": "ng build --output-path dist"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.19",
