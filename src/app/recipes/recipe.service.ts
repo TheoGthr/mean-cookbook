@@ -8,7 +8,8 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class RecipeService {
-  private baseUrl = 'http://localhost:8080';
+  // private baseUrl = 'http://localhost:8080'; // For dev only
+  private baseUrl = '';
   private recipesUrl = `${this.baseUrl}/api/recipes`;
 
   constructor(private http: HttpClient) {}
