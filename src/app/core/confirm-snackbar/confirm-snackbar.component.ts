@@ -4,7 +4,7 @@ import { Component } from "@angular/core";
   selector: "cb-confirm-snackbar",
   styleUrls: ["./confirm-snackbar.component.scss"],
   template: `
-    <span class="mat-body">Recipe deleted</span>
+    <span class="mat-body">{{ 'recipes.deleted' | translate }}</span>
   `
 })
 export class ConfirmSnackbarComponent {}

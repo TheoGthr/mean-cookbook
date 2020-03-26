@@ -1,0 +1,29 @@
+{
+  "common": {
+    "lang_fr": "Français",
+    "lang_en": "English",
+    "cookbook": "Mes recettes",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "recipes": {
+    "add": "Ajouter",
+    "create": "Créer",
+    "remove": "Supprimer",
+    "delete": "Supprimer",
+    "deleted": "Recette supprimée",
+    "confirm_delete": "Êtes-vous sûr ?",
+    "ingredients": "Ingrédients",
+    "ingredient": "Ingrédient",
+    "quantity": "Quantité",
+    "directions": "Instructions",
+    "direction": "Instruction",
+    "new_recipe": "Nouvelle recette",
+    "category": "Catégorie",
+    "new": "Nouvelle",
+    "name": "Nom",
+    "my_recipes": "Mes recettes",
+    "min": "min",
+    "cook_time": "Durée de cuisson"
+  }
+}

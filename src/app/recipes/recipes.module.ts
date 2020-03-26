@@ -8,6 +8,7 @@ import { RecipeService } from './recipe.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { CoreModule } from '../core/core.module';
     MaterialModule,
     CommonModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
+    TranslateModule
   ],
   declarations: [
     RecipeListComponent,
@@ -26,7 +28,8 @@ import { CoreModule } from '../core/core.module';
   exports: [
     RecipeListComponent,
     RecipeFormComponent,
-    RecipeDetailsComponent
+    RecipeDetailsComponent,
+    TranslateModule
   ],
   providers: [RecipeService]
 })

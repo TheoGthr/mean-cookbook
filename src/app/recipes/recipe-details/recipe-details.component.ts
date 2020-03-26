@@ -29,22 +29,22 @@ import { MatDialog } from "@angular/material";
           class="delete-button"
           (click)="openDialog()"
         >
-          Delete
+          {{ 'recipes.delete' | translate }}
         </button>
       </h2>
       <h3 class="mat-h3 title-and-button"><mat-icon>menu_book</mat-icon> {{ RecipeCategories[recipe.category] }}</h3>
-      <h3 class="mat-h3 title-and-button"><mat-icon>timer</mat-icon> {{ recipe.cookTime }}min</h3>
+      <h3 class="mat-h3 title-and-button"><mat-icon>timer</mat-icon> {{ recipe.cookTime }}{{ 'recipes.min' | translate }}</h3>
       <mat-divider></mat-divider>
 
       <mat-card>
-        <h2 class="mat-h2">Ingredients</h2>
+        <h2 class="mat-h2">{{ 'recipes.ingredients' | translate }}</h2>
         <mat-list>
           <mat-list-item *ngFor="let ingredient of recipe.ingredients">
             <mat-icon mat-list-icon>add</mat-icon>
             {{ ingredient.label }} : {{ ingredient.quantity }}
           </mat-list-item>
         </mat-list>
-        <h2 class="mat-h2">Directions</h2>
+        <h2 class="mat-h2">{{ 'recipes.directions' | translate }}</h2>
         <mat-list>
           <mat-list-item *ngFor="let dir of recipe.directions">
             <mat-icon mat-list-icon>add</mat-icon>

@@ -1,24 +1,24 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl,
   FormArray
-} from "@angular/forms";
-import { RecipeService } from "../recipe.service";
-import { Recipe, RecipeCategories, Ingredient } from "src/app/models";
-import { Router } from "@angular/router";
+} from '@angular/forms';
+import { RecipeService } from '../recipe.service';
+import { Recipe, RecipeCategories, Ingredient } from 'src/app/models';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "cb-recipe-form",
-  styleUrls: ["./recipe-form.component.scss"],
+  selector: 'cb-recipe-form',
+  styleUrls: ['./recipe-form.component.scss'],
   template: `
     <h2 class="mat-h2">
       <button mat-icon-button routerLink="/recipes" matTooltip="Return">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      New recipe
+      {{ 'recipes.new_recipe' | translate }}
     </h2>
     <mat-card>
       <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
@@ -27,7 +27,7 @@ import { Router } from "@angular/router";
           <input
             matInput
             type="text"
-            placeholder="Name"
+            placeholder="{{ 'recipes.name' | translate }}"
             formControlName="name"
           />
         </mat-form-field>
@@ -35,7 +35,7 @@ import { Router } from "@angular/router";
         <div class="row-flex">
           <!-- Category -->
           <mat-form-field class="first-row-flex">
-            <mat-label>Category</mat-label>
+            <mat-label>{{ 'recipes.category' | translate }}</mat-label>
             <mat-select formControlName="category">
               <mat-option
                 *ngFor="let opt of RecipeCategoriesKeys"
@@ -52,17 +52,17 @@ import { Router } from "@angular/router";
               matInput
               class="number-time"
               type="number"
-              placeholder="Cook time"
+              placeholder="{{ 'recipes.cook_time' | translate }}"
               formControlName="cookTime"
             />
-            <span matSuffix>&nbsp;min</span>
+            <span matSuffix>&nbsp;{{ 'recipes.min' | translate }}</span>
           </mat-form-field>
         </div>
 
         <!-- Ingredients -->
         <div formArrayName="ingredients" class="divided">
           <h3 class="mat-h3">
-            Ingredients
+            {{ 'recipes.ingredients' | translate }}
             <mat-divider></mat-divider>
           </h3>
           <button
@@ -72,7 +72,7 @@ import { Router } from "@angular/router";
             (click)="addIngredient()"
             [disabled]="isLastIngredientEmpty()"
           >
-            Add
+            {{ 'recipes.add' | translate }}
           </button>
           <button
             mat-raised-button
@@ -80,7 +80,7 @@ import { Router } from "@angular/router";
             (click)="deleteIngredient()"
             [disabled]="ingredients.length <= 1"
           >
-            Remove
+            {{ 'recipes.remove' | translate }}
           </button>
           <mat-list>
             <mat-list-item *ngFor="let ig of recipeForm.get('ingredients').controls; let i=index;">
@@ -90,7 +90,7 @@ import { Router } from "@angular/router";
                   <input
                     matInput
                     type="text"
-                    placeholder="Ingredient"
+                    placeholder="{{ 'recipes.ingredient' | translate }}"
                     formControlName="label"
                   />
                 </mat-form-field>
@@ -98,7 +98,7 @@ import { Router } from "@angular/router";
                   <input
                     matInput
                     type="text"
-                    placeholder="Quantity"
+                    placeholder="{{ 'recipes.quantity' | translate }}"
                     formControlName="quantity"
                   />
                 </mat-form-field>
@@ -110,7 +110,7 @@ import { Router } from "@angular/router";
         <!-- Directions -->
         <div formArrayName="directions" class="divided">
           <h3 class="mat-h3">
-            Directions
+            {{ 'recipes.directions' | translate }}
             <mat-divider></mat-divider>
           </h3>
           <button
@@ -120,7 +120,7 @@ import { Router } from "@angular/router";
             (click)="addDirection()"
             [disabled]="isLastDirectionEmpty()"
           >
-            Add
+            {{ 'recipes.add' | translate }}
           </button>
           <button
             mat-raised-button
@@ -128,7 +128,7 @@ import { Router } from "@angular/router";
             (click)="deleteDirection()"
             [disabled]="directions.length <= 1"
           >
-            Remove
+            {{ 'recipes.remove' | translate }}
           </button>
           <mat-list>
             <mat-list-item *ngFor="let ig of directions.controls; let i=index">
@@ -140,7 +140,7 @@ import { Router } from "@angular/router";
                   cdkAutosizeMinRows="1"
                   cdkAutosizeMaxRows="2"
                   matInput
-                  placeholder="Direction"
+                  placeholder="{{ 'recipes.direction' | translate }}"
                   [formControlName]="i"
                 ></textarea>
               </mat-form-field>
@@ -155,7 +155,7 @@ import { Router } from "@angular/router";
             mat-raised-button
             [disabled]="!recipeForm.valid"
           >
-            Create
+            {{ 'recipes.create' | translate }}
           </button>
         </div>
       </form>
@@ -173,18 +173,18 @@ export class RecipeFormComponent {
     private router: Router
   ) {
     this.recipeForm = this.fb.group({
-      name: ["", Validators.required],
-      cookTime: ["", Validators.required],
+      name: ['', Validators.required],
+      cookTime: ['', Validators.required],
       ingredients: this.fb.array([
         this.fb.group({
-          label: ["", Validators.required],
-          quantity: ["", Validators.required]
+          label: ['', Validators.required],
+          quantity: ['', Validators.required]
         })
       ]),
       directions: this.fb.array([
-        this.fb.control("", Validators.required)
+        this.fb.control('', Validators.required)
       ]),
-      category: ["", Validators.required]
+      category: ['', Validators.required]
     });
   }
 
@@ -194,14 +194,14 @@ export class RecipeFormComponent {
 
   public addIngredient() {
     this.ingredients.push(this.fb.group({
-      label: ["", Validators.required],
-      quantity: ["", Validators.required]
+      label: ['', Validators.required],
+      quantity: ['', Validators.required]
     }));
   }
 
   public isLastIngredientEmpty() {
     const ig: Ingredient = this.ingredients.value[this.ingredients.length - 1];
-    return ig.label === "" || ig.quantity === "";
+    return ig.label === '' || ig.quantity === '';
   }
 
   public deleteIngredient() {
@@ -219,7 +219,7 @@ export class RecipeFormComponent {
   }
 
   public isLastDirectionEmpty() {
-    return this.directions.value[this.directions.length - 1] === ""
+    return this.directions.value[this.directions.length - 1] === ''
   }
 
   public deleteDirection() {
@@ -232,7 +232,7 @@ export class RecipeFormComponent {
     this.recipeService
       .createRecipe(this.recipeForm.value as Recipe)
       .subscribe(() => {
-        this.router.navigate(["recipes"]);
+        this.router.navigate(['recipes']);
       });
   }
 }

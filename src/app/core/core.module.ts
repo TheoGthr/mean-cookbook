@@ -5,11 +5,13 @@ import { CbNavComponent } from './nav/cb-nav.component';
 import { MaterialModule } from '../material.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ConfirmSnackbarComponent } from './confirm-snackbar/confirm-snackbar.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     RouterModule,
-    MaterialModule
+    MaterialModule,
+    TranslateModule
   ],
   declarations: [
     CbNavComponent,
@@ -21,7 +23,8 @@ import { ConfirmSnackbarComponent } from './confirm-snackbar/confirm-snackbar.co
     CbNavComponent,
     NotFoundComponent,
     ConfirmDialogComponent,
-    ConfirmSnackbarComponent
+    ConfirmSnackbarComponent,
+    TranslateModule
   ],
   entryComponents: [
     ConfirmDialogComponent,

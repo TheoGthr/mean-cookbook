@@ -1,0 +1,29 @@
+{
+  "common": {
+    "lang_fr": "Français",
+    "lang_en": "English",
+    "cookbook": "My Cookbook",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "recipes": {
+    "add": "Add",
+    "create": "Create",
+    "remove": "Remove",
+    "delete": "Delete",
+    "deleted": "Recipe deleted",
+    "confirm_delete": "Are you sure?",
+    "ingredients": "Ingredients",
+    "ingredient": "Ingredient",
+    "quantity": "Quantity",
+    "directions": "Directions",
+    "direction": "Direction",
+    "new_recipe": "New recipe",
+    "category": "Category",
+    "new": "new",
+    "name": "Name",
+    "my_recipes": "My recipes",
+    "min": "min",
+    "cook_time": "Cook time"
+  }
+}

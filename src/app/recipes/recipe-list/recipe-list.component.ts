@@ -11,15 +11,15 @@ import { ConfirmSnackbarComponent } from 'src/app/core/confirm-snackbar/confirm-
   template: `
     <div class="list-container">
       <div>
-        <h2 class="mat-h2">My recipes</h2>
+        <h2 class="mat-h2">{{ 'recipes.my_recipes' | translate }}</h2>
         <button mat-raised-button color="accent" routerLink="new">
-          New
+          {{ 'recipes.new' | translate }}
         </button>
       </div>
       <table mat-table [dataSource]="recipes" class="mat-elevation-z8">
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'recipes.name' | translate }}</th>
           <td mat-cell *matCellDef="let recipe">{{ recipe.name }}</td>
         </ng-container>
 
@@ -44,7 +44,7 @@ import { ConfirmSnackbarComponent } from 'src/app/core/confirm-snackbar/confirm-
 })
 export class RecipeListComponent implements OnInit {
   public recipes: Recipe[];
-  public displayedColumns: string[] = ["name", "category"];
+  public displayedColumns: string[] = ['name', 'category'];
   public RecipeCategories = RecipeCategories;
 
   constructor(
@@ -59,7 +59,7 @@ export class RecipeListComponent implements OnInit {
       this.recipes = recipes;
     });
     this.route.queryParams.subscribe(params => {
-      if (params.deleted === "1") {
+      if (params.deleted === '1') {
         this._snackBar.openFromComponent(ConfirmSnackbarComponent, {
           duration: 3 * 1000,
           panelClass: ['success-bg']
@@ -69,6 +69,6 @@ export class RecipeListComponent implements OnInit {
   }
 
   public onSelectRecipe(id: string) {
-    this.router.navigate(["/details"], { queryParams: { id } });
+    this.router.navigate(['/details'], { queryParams: { id } });
   }
 }
