@@ -9,7 +9,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class RecipeService {
-  private baseUrl = environment.apiUrl;
+  // private baseUrl = environment.apiUrl; // for dev purposes
+  private baseUrl = '';
   private recipesUrl = `${this.baseUrl}/api/recipes`;
 
   constructor(private http: HttpClient) {}

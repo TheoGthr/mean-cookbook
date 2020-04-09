@@ -178,7 +178,7 @@ export class RecipeFormComponent {
       ingredients: this.fb.array([
         this.fb.group({
           label: ['', Validators.required],
-          quantity: ['', Validators.required]
+          quantity: ['']
         })
       ]),
       directions: this.fb.array([
@@ -195,13 +195,13 @@ export class RecipeFormComponent {
   public addIngredient() {
     this.ingredients.push(this.fb.group({
       label: ['', Validators.required],
-      quantity: ['', Validators.required]
+      quantity: ['']
     }));
   }
 
   public isLastIngredientEmpty() {
     const ig: Ingredient = this.ingredients.value[this.ingredients.length - 1];
-    return ig.label === '' || ig.quantity === '';
+    return ig.label === '';
   }
 
   public deleteIngredient() {
