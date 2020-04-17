@@ -1,3 +1,5 @@
+import { SearchService } from '../recipes/services/search.service';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';

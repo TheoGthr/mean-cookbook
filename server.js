@@ -13,20 +13,19 @@ app.use(bodyParser.json());
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
-/* ONLY FOR DEV
+/* ONLY FOR DEV */
 const corsOptions = {
   origin: "http://localhost:4200",
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 app.use(cors(corsOptions));
-*/
 
 // database variable outside of the database connection callback to reuse the connection pool in the app
 let db;
 const options = {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 };
 
 // connect to the db befor starting the application server
@@ -117,16 +116,17 @@ app.get("/api/recipes/:id", (req, res) => {
 
 app.put("/api/recipes/:id", (req, res) => {
   let updatedDoc = req.body;
+  const id = updatedDoc._id;
   delete updatedDoc._id;
-
+  // const doc = db.collection(RECIPES_COLLECTION).findOne
   db.collection(RECIPES_COLLECTION).updateOne(
-    { _id: new ObjectId(req.params.id) },
-    updatedDoc,
+    { _id: new ObjectId(id) },
+    { $set: { ...updatedDoc } },
     (err, doc) => {
       if (err) {
         handleError(res, err.message, "Failed to update recipe");
       } else {
-        updatedDoc._id = req.params.id;
+        updatedDoc._id = id;
         res.status(200).json(updatedDoc);
       }
     }
@@ -144,4 +144,31 @@ app.delete("/api/recipes/:id", (req, res) => {
       }
     }
   );
+});
+
+/**
+ * SEARCH API ROUTES BELOW
+ */
+app.get("/api/search", (req, res) => {
+  const search = req.query.search;
+  let condition = search
+    ? {
+        $or: [
+          { name: { $regex: new RegExp(search), $options: "i" } },
+          {
+            "ingredients.label": { $regex: new RegExp(search), $options: "i" },
+          },
+        ],
+      }
+    : {};
+
+  db.collection(RECIPES_COLLECTION)
+    .find(condition)
+    .toArray((err, doc) => {
+      if (err) {
+        handleError(res, err.message, "Failed to get recipes");
+      } else {
+        res.status(200).json(doc);
+      }
+    });
 });

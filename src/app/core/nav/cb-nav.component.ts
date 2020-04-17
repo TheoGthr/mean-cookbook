@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
       <mat-sidenav-content class="sidenav-content">
         <mat-toolbar color="primary" class="mat-elevation-z4">
           <a routerLink="/" class="logo">{{ 'common.cookbook' | translate }}</a>
+          <!-- Language button -->
           <div class="language-btn">
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Languages" id="languages">
               <mat-icon>language</mat-icon>
@@ -37,7 +38,9 @@ import { TranslateService } from '@ngx-translate/core';
   `
 })
 export class CbNavComponent {
-  constructor(private translateService: TranslateService) {}
+  constructor(
+    private translateService: TranslateService
+  ) {}
 
   public setLang(lang: string) {
     this.translateService.use(lang);

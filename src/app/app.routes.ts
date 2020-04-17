@@ -21,6 +21,11 @@ export const ROUTES: Routes = [
     component: RecipeDetailsComponent,
     pathMatch: 'full'
   },
+  {
+    path: 'modify',
+    component: RecipeFormComponent,
+    pathMatch: 'full'
+  },
   { path: '',
     redirectTo: 'recipes',
     pathMatch: 'full'

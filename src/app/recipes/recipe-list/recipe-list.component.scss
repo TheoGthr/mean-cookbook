@@ -1,8 +1,3 @@
-.list-container {
-  display: flex;
-  flex-direction: column;
-}
-
 h2 {
   display: inline-flex;
   margin-right: 1%;
@@ -10,10 +5,26 @@ h2 {
 }
 
 table {
-  width: 75%;
-  align-self: center;
+  width: 100%;
 }
 
 .rows:hover {
   cursor: pointer;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-list {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  align-self: center;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: row-reverse;
 }

@@ -6,19 +6,25 @@ import {
   FormControl,
   FormArray
 } from '@angular/forms';
-import { RecipeService } from '../recipe.service';
+import { RecipeService } from '../services/recipe.service';
 import { Recipe, RecipeCategories, Ingredient } from 'src/app/models';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'cb-recipe-form',
   styleUrls: ['./recipe-form.component.scss'],
   template: `
-    <h2 class="mat-h2">
+    <h2 *ngIf="!isModif" class="mat-h2">
       <button mat-icon-button routerLink="/recipes" matTooltip="Return">
         <mat-icon>arrow_back</mat-icon>
       </button>
       {{ 'recipes.new_recipe' | translate }}
+    </h2>
+    <h2 *ngIf="isModif" class="mat-h2">
+      <button mat-icon-button routerLink="/recipes" matTooltip="Return">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      {{ 'recipes.modify' | translate }}
     </h2>
     <mat-card>
       <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
@@ -41,7 +47,7 @@ import { Router } from '@angular/router';
                 *ngFor="let opt of RecipeCategoriesKeys"
                 [value]="opt"
               >
-                {{ RecipeCategories[opt] }}
+                {{ RecipeCategories[opt] | translate }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -83,7 +89,7 @@ import { Router } from '@angular/router';
             {{ 'recipes.remove' | translate }}
           </button>
           <mat-list>
-            <mat-list-item *ngFor="let ig of recipeForm.get('ingredients').controls; let i=index;">
+            <mat-list-item *ngFor="let ig of recipeForm.get('ingredients')['controls']; let i=index;">
               <mat-icon mat-list-icon>add</mat-icon>
               <div [formGroupName]="i" class="ingredients-fields">
                 <mat-form-field>
@@ -154,8 +160,20 @@ import { Router } from '@angular/router';
             type="submit"
             mat-raised-button
             [disabled]="!recipeForm.valid"
+            *ngIf="!isModif"
           >
             {{ 'recipes.create' | translate }}
+          </button>
+        </div>
+        <!-- Save Button -->
+        <div class="submit-button">
+          <button
+            type="submit"
+            mat-raised-button
+            [disabled]="!recipeForm.valid"
+            *ngIf="isModif"
+          >
+            {{ 'recipes.save' | translate }}
           </button>
         </div>
       </form>
@@ -166,12 +184,15 @@ export class RecipeFormComponent {
   public recipeForm: FormGroup;
   public RecipeCategories = RecipeCategories;
   public RecipeCategoriesKeys: string[] = Object.keys(this.RecipeCategories);
+  public isModif = false;
 
   constructor(
     private fb: FormBuilder,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
+    this.isModif = history.state.data !== undefined;
     this.recipeForm = this.fb.group({
       name: ['', Validators.required],
       cookTime: ['', Validators.required],
@@ -186,6 +207,23 @@ export class RecipeFormComponent {
       ]),
       category: ['', Validators.required]
     });
+    if (this.isModif) {
+      const recipeToModify: Recipe = history.state.data as Recipe;
+      this.recipeForm.patchValue({
+        name: recipeToModify.name,
+        cookTime: recipeToModify.cookTime,
+        category: recipeToModify.category
+      });
+      this.ingredients.removeAt(0);
+      this.directions.removeAt(0);
+      for (const ingredient of recipeToModify.ingredients) {
+        this.addIngredientModify(ingredient);
+      }
+      for (const direction of recipeToModify.directions) {
+        this.addDirectionModify(direction);
+      }
+      console.log(history.state.data);
+    }
   }
 
   public get ingredients() {
@@ -199,13 +237,20 @@ export class RecipeFormComponent {
     }));
   }
 
+  public addIngredientModify(ingredient: Ingredient) {
+    this.ingredients.push(this.fb.group({
+      label: [ingredient.label, Validators.required],
+      quantity: [ingredient.quantity]
+    }));
+  }
+
   public isLastIngredientEmpty() {
     const ig: Ingredient = this.ingredients.value[this.ingredients.length - 1];
     return ig.label === '';
   }
 
   public deleteIngredient() {
-    if(this.ingredients.length > 1) {
+    if (this.ingredients.length > 1) {
       this.ingredients.removeAt(-1);
     }
   }
@@ -218,21 +263,34 @@ export class RecipeFormComponent {
     this.directions.push(this.fb.control('', Validators.required));
   }
 
+  public addDirectionModify(direction: string) {
+    this.directions.push(this.fb.control(direction, Validators.required));
+  }
+
   public isLastDirectionEmpty() {
-    return this.directions.value[this.directions.length - 1] === ''
+    return this.directions.value[this.directions.length - 1] === '';
   }
 
   public deleteDirection() {
-    if(this.directions.length > 1) {
+    if (this.directions.length > 1) {
       this.directions.removeAt(-1);
     }
   }
 
   public onSubmit() {
-    this.recipeService
-      .createRecipe(this.recipeForm.value as Recipe)
+    if (!this.isModif) {
+      this.recipeService
+        .createRecipe(this.recipeForm.value as Recipe)
+        .subscribe(() => {
+          this.router.navigate(['recipes']);
+        });
+    } else {
+      const updatedRecipe = this.recipeForm.value as Recipe;
+      updatedRecipe._id = history.state.data._id;
+      this.recipeService.updateRecipe(updatedRecipe)
       .subscribe(() => {
-        this.router.navigate(['recipes']);
+        this.router.navigate(['details'], { queryParams: { id: updatedRecipe._id } });
       });
+    }
   }
 }

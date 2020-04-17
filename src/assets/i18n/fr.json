@@ -4,13 +4,16 @@
     "lang_en": "English",
     "cookbook": "Mes recettes",
     "yes": "Oui",
-    "no": "Non"
+    "no": "Non",
+    "search": "Rechercher"
   },
   "recipes": {
     "add": "Ajouter",
     "create": "Créer",
     "remove": "Supprimer",
     "delete": "Supprimer",
+    "modify": "Modifier",
+    "save": "Modifier",
     "deleted": "Recette supprimée",
     "confirm_delete": "Êtes-vous sûr ?",
     "ingredients": "Ingrédients",
@@ -25,5 +28,13 @@
     "my_recipes": "Mes recettes",
     "min": "min",
     "cook_time": "Durée de cuisson"
+  },
+  "cat": {
+    "appetizer": "Apéritif",
+    "starter": "Entrée",
+    "main": "Plat",
+    "dessert": "Dessert",
+    "beverage": "Boisson",
+    "misc": "Divers"
   }
 }

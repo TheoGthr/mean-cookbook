@@ -5,6 +5,13 @@ export interface Recipe {
   ingredients: Ingredient[];
   directions: string[];
   category: RecipeCategories;
+  createDate?: any;
+}
+
+export interface RecipeShort {
+  _id?: string;
+  name: string;
+  category: RecipeCategories;
 }
 
 export interface Ingredient {
@@ -13,10 +20,10 @@ export interface Ingredient {
 }
 
 export enum RecipeCategories {
-  APPETIZER = 'Appetizer',
-  STARTER = 'Starter',
-  MAIN = 'Main',
-  DESSERT = 'Dessert',
-  BEVERAGE = 'Beverage',
-  MISC = 'Misc.'
+  APPETIZER = 'cat.appetizer',
+  STARTER = 'cat.starter',
+  MAIN = 'cat.main',
+  DESSERT = 'cat.dessert',
+  BEVERAGE = 'cat.beverage',
+  MISC = 'cat.misc'
 }

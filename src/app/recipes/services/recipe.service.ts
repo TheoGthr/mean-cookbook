@@ -1,5 +1,6 @@
+import { RecipeShort } from '../../models';
 import { Injectable } from '@angular/core';
-import { Recipe } from '../models';
+import { Recipe } from '../../models';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
@@ -19,8 +20,8 @@ export class RecipeService {
    * GET /api/recipes
    * Find all the recipes
    */
-  public getRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(this.recipesUrl).pipe(
+  public getRecipes(): Observable<RecipeShort[]> {
+    return this.http.get<RecipeShort[]>(this.recipesUrl).pipe(
       map(res => res || []),
       catchError(error => {
         this.handleError(error);
@@ -41,6 +42,18 @@ export class RecipeService {
         return throwError(error.message || error);
       })
     );
+  }
+
+  /**
+   * PUT /api/recipes
+   */
+  public updateRecipe(recipe: Recipe): Observable<Recipe> {
+    return this.http
+      .put<Recipe>(`${this.recipesUrl}/${recipe._id}`, recipe)
+      .pipe(catchError(error => {
+        this.handleError(error);
+        return throwError(error.message || error);
+      }));
   }
 
   /**

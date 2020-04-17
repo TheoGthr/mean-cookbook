@@ -4,13 +4,16 @@
     "lang_en": "English",
     "cookbook": "My Cookbook",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "search": "Search"
   },
   "recipes": {
     "add": "Add",
     "create": "Create",
     "remove": "Remove",
     "delete": "Delete",
+    "modify": "Modify",
+    "save": "Save",
     "deleted": "Recipe deleted",
     "confirm_delete": "Are you sure?",
     "ingredients": "Ingredients",
@@ -25,5 +28,13 @@
     "my_recipes": "My recipes",
     "min": "min",
     "cook_time": "Cook time"
+  },
+  "cat": {
+    "appetizer": "Appetizer",
+    "starter": "Starter",
+    "main": "Main",
+    "dessert": "Dessert",
+    "beverage": "Beverage",
+    "misc": "Misc."
   }
 }
